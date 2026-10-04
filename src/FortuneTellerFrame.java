@@ -25,9 +25,13 @@ public class FortuneTellerFrame extends JFrame
         createControlPanel();
 
         setTitle("Fortune Teller");
-        setSize(550, 650);
-
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        int screenWidth = toolkit.getScreenSize().width;
+        int frameWidth = screenWidth * 3 / 4;
+        int frameHeight = 650;
+        setSize(frameWidth, frameHeight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
@@ -65,7 +69,11 @@ public class FortuneTellerFrame extends JFrame
     public void createDisplayPanel()
     {
         displayPnl = new JPanel();
-        fortuneTA = new JTextArea(15, 50);
+        fortuneTA = new JTextArea(15, 45);
+        fortuneTA.setEditable(false);
+        fortuneTA.setFont(new Font("Comic Sans MS", Font.ITALIC, 16));
+        fortuneTA.setForeground(Color.BLUE);
+        fortuneTA.setBackground(Color.LIGHT_GRAY);
         scroller = new JScrollPane(fortuneTA);
         displayPnl.add(scroller);
         mainPnl.add(displayPnl, BorderLayout.CENTER);
@@ -92,7 +100,7 @@ public class FortuneTellerFrame extends JFrame
                 newDex = rnd.nextInt(fortunes.length);
             } while (newDex == curFortuneDex);
             curFortuneDex = newDex;
-            fortuneTA.setText(fortunes[curFortuneDex]);
+            fortuneTA.append(fortunes[curFortuneDex] + "\n");
         });
         cmdPnl.add(fortuneBtn);
         cmdPnl.add(quitBtn);
